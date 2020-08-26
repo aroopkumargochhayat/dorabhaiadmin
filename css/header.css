@@ -1,0 +1,12 @@
+header {
+	padding: 1.4rem 1.6rem;
+	background: #222;
+	color: #fff;
+	/*display: flex;
+	align-items: center;*/
+}
+header p#logo {
+	margin: 0;
+	font: 500 1.2rem arial;
+	letter-spacing: 0.5px;
+}
