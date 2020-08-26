@@ -30,14 +30,19 @@ include('_dbconn.php');
 						      <td>'.$row["admin_name"].'</td>
 						      <td>'.$row["admin_username"].'</td>
 						      <td>'.$row["admin_level"].'</td>
-						      <td>
-						      	<form action="" method="POST">
-									<input type="hidden" name="id" value="'.$row["admin_id"].'">
-									<input type="submit" class="btn btn-sm btn-warning" name="delete" value="Delete">
-							  	</form>
-							  </td>
-						   </tr>
-							';
+						      <td>';
+						      if ($row["admin_level"] == 0) {
+						      	echo '<button class="btn btn-success" disabled>Super User</button>';
+						      } else {
+						      	 echo'
+							      	<form action="" method="POST">
+										<input type="hidden" name="id" value="'.$row["admin_id"].'">
+										<input type="submit" class="btn btn-sm btn-warning" name="delete" value="Delete">
+								  	</form>
+								  </td>
+							   </tr>';
+						      }
+						     
 						}
 					}
 				}

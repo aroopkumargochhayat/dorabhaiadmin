@@ -48,7 +48,7 @@ $id = $name = $level = $username ="";
 
 	<script>
 		$(document).ready(function() {
-			$("#load").load("allUser.php");
+			// $("#load").load("allUser.php");
 	        $("#alluser").click(function() {
 	          	$("#load").load("allUser.php");
 	        });
