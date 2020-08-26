@@ -3,6 +3,7 @@
 session_start();
 include('_dbconn.php');
 if (!isset($_SESSION["user_id"])) {
+	$_SESSION["msg"] = "Unauthorized access";
 	header("location: /adminpanel/index.php?unauthorized_access");
 }
 $id = $name = $level = $username ="";
@@ -30,12 +31,22 @@ $id = $name = $level = $username ="";
 		<div class="row">
 			<div class="col-md-2 col-12 px-0">
 				<div class="menu_div">
-					<button id="hide_show"> - Collapse Menu </button>
-					<div class="collapse_menu">
-						<a href="/adminpanel/dashboard.php?panel=all-user" id="alluser" name="alluser">All users</a>
-						<a href="/adminpanel/dashboard.php?panel=add-user" id="adduser" name="adduser" >Add user</a>
-						<a href="/adminpanel/dashboard.php?panel=remove-user" id="removeuser" name="removeuser">Remove user</a>
-					</div>
+					<?php 
+					echo$_SESSION["user_id"];
+					if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 0) {
+						echo '
+						<button id="hide_show"> + Show User Menu </button>
+						<div class="collapse_menu">
+							<a href="/adminpanel/dashboard.php?panel=all-user" id="alluser" name="alluser">All users</a>
+							<a href="/adminpanel/dashboard.php?panel=add-user" id="adduser" name="adduser" >Add user</a>
+							<a href="/adminpanel/dashboard.php?panel=remove-user" id="removeuser" name="removeuser">Remove user</a>
+						</div>
+						';
+					} else {
+						echo '<a href="/adminpanel/dashboard.php?panel=all-user" id="alluser" name="alluser">All users</a>';
+					}
+					?>
+					
 					<a href="/adminpanel/_logout.php" id="logout">Logout</a>
 				</div>
 			</div>
@@ -59,17 +70,23 @@ $id = $name = $level = $username ="";
 	<!-- get footer -->
 	<?php include '_footer.php'; ?>
 
-	
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$(".collapse_menu").hide();
 			$(".menu_div button").click(function(){
-				$(".collapse_menu").slideToggle("slow");
-				$(".menu_div button").toggleClass("expanded");
+				
+				// $(".menu_div button").addClass("expanded");
+				// $(".menu_div .collapse_menu").toggleClass("expanded");
+
 			    if ($(".menu_div button").hasClass("expanded")) {
 			      $(".menu_div button").html("+ Show User Menu");
+			      $(".collapse_menu").slideUp("slow");
+			      $(".menu_div button").removeClass("expanded");
 			    } else {
 			      $(".menu_div button").html("- Collapse User Menu");
+			      $(".collapse_menu").slideDown("slow");
+			      $(".menu_div button").addClass("expanded");
 			    }
 			});
 		})
@@ -105,7 +122,7 @@ $id = $name = $level = $username ="";
 					$result = mysqli_prepare($conn, $sql);
 
 					if ($result) {
-						
+
 						// Bind variables to prepare statement as parameters
 						mysqli_stmt_bind_param($result, 'siss', $fullname, $level, $username, $hash_password);
 

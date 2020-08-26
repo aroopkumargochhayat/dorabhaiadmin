@@ -3,7 +3,7 @@
 $fullname = $username = $password = $repeat_password = "";
 ?>
 <div class="panel pt-5">
-	<form method="post" action="">
+	<form method="post" action="" autocomplete="off">
 	  <div class="form-group">
 	    <label for="fullname">Enter Full name</label>
 	    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter Full name">

