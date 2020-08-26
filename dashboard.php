@@ -94,33 +94,45 @@ $id = $name = $level = $username ="";
 
 	if(isset($_POST["add_user"])) {
 		if(!empty($_POST["fullname"]) && !empty($_POST["username"]) && !empty($_POST["password"]) || !empty($_POST["repeat_password"])) {
+			$username = $_POST["username"];
 			$password = $_POST["password"];
 			$repeat_password = $_POST["repeat_password"];
 			if ($password == $repeat_password) {
-				$sql = "INSERT INTO admin (admin_name, admin_level, admin_username, admin_password) VALUES(?, ?, ?, ?)";
-				$result = mysqli_prepare($conn, $sql);
+				$chksql = "SELECT admin_username FROM admin WHERE admin_username='$username'";
+				$chkres = mysqli_query($conn, $chksql);
+				if (mysqli_num_rows($chkres) == 0) {
+					$sql = "INSERT INTO admin (admin_name, admin_level, admin_username, admin_password) VALUES(?, ?, ?, ?)";
+					$result = mysqli_prepare($conn, $sql);
 
-				if ($result) {
-					// Bind variables to prepare statement as parameters
-					mysqli_stmt_bind_param($result, 'siss', $fullname, $level, $username, $hash_password);
+					if ($result) {
+						
+						// Bind variables to prepare statement as parameters
+						mysqli_stmt_bind_param($result, 'siss', $fullname, $level, $username, $hash_password);
 
-					// Variables of name and age
-					$fullname = $_POST["fullname"];
-					$level = $_POST["level"];
-					$username = $_POST["username"];
-					$hash_password = md5($_POST["password"]);
+						// Variables of name and age
+						$fullname = $_POST["fullname"];
+						$level = $_POST["level"];
+						$username = $_POST["username"];
+						$hash_password = md5($_POST["password"]);
 
-					// Execute prepare statement
-					mysqli_stmt_execute($result);
+						// Execute prepare statement
+						mysqli_stmt_execute($result);
 
-					// Show affected rows (Optional)
-					echo mysqli_stmt_affected_rows($result). "Row(s) Inserted!";
-				} else {
-					echo "";
-				}
+						unset($_SESSION["err"]);
+						header("location: /adminpanel/dashboard.php?panel=all-user");
+
+					} else {
+						$_SESSION["err"] = "Unable to Insert.";
+						header("location: /adminpanel/dashboard.php?panel=add-user");
+					}
+				} else{
+					$_SESSION["err"] = "Username already exist.";
+					header("location: /adminpanel/dashboard.php?panel=add-user");
+				} 
 			}
 		} else {
-			echo "";
+			$_SESSION["err"] = "Fill all required fields.";
+			header("location: /adminpanel/dashboard.php?panel=add-user");
 		}
 	}
 	?>

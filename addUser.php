@@ -3,7 +3,7 @@
 $fullname = $username = $password = $repeat_password = "";
 ?>
 <div class="panel pt-5">
-	<form method="post" action="/adminpanel/dashboard.php?panel=add-user">
+	<form method="post" action="">
 	  <div class="form-group">
 	    <label for="fullname">Enter Full name</label>
 	    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Enter Full name">
@@ -31,7 +31,7 @@ $fullname = $username = $password = $repeat_password = "";
 	  <button type="submit" name="add_user" class="btn btn-primary my-3">Submit</button>
 	</form>
 
-	<p class="text-danger"><?php if(isset($_SESSION["err"])) {echo $_SESSION["err"];} ?></p>
+	<p class="text-danger font-weight-bold"><?php if(isset($_SESSION["err"])) {echo $_SESSION["err"];} ?></p>
 </div>
 
 
