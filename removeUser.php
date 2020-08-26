@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include('_dbconn.php');
 
 ?>
@@ -35,10 +35,16 @@ include('_dbconn.php');
 						      	echo '<button class="btn btn-success" disabled>Super User</button>';
 						      } else {
 						      	 echo'
-							      	<form action="" method="POST">
-										<input type="hidden" name="id" value="'.$row["admin_id"].'">
-										<input type="submit" class="btn btn-sm btn-warning" name="delete" value="Delete">
-								  	</form>
+						      	 	<div class="d-flex remove_btn">
+								      	 <button id="remove" class="btn btn-warning mr-4">Remove</button>
+								      	 <div class="confbox">
+											<form id="delform" action="" method="POST">
+												<input type="hidden" name="id" value="'.$row["admin_id"].'">
+												<input type="submit" id="yes_btn" class="btn btn-sm btn-danger deleteBtn" name="conf_delete" value="Confirm" />
+										  	</form>
+											
+										</div>
+									</div>
 								  </td>
 							   </tr>';
 						      }
@@ -51,3 +57,5 @@ include('_dbconn.php');
 		</tbody>
 	</table>
 </div>
+
+<!-- <button id="no_btn" class="btn btn-primary mx-3" name="no">No</button> -->

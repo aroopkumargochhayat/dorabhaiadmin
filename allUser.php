@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include('_dbconn.php');
 
 $id = $name = $level = $username ="";

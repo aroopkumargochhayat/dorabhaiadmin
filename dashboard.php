@@ -30,15 +30,28 @@ $id = $name = $level = $username ="";
 		<div class="row">
 			<div class="col-md-2 col-12 px-0">
 				<div class="menu_div">
-					<button id="alluser" name="alluser">All users</button>
-					<button id="adduser" name="adduser" >Add user</button>
-					<button id="removeuser" name="removeuser">Remove user</button>
-					<a href="/adminpanel/_logout.php">Logout</a>
+					<button id="hide_show"> - Collapse Menu </button>
+					<div class="collapse_menu">
+						<a href="/adminpanel/dashboard.php?panel=all-user" id="alluser" name="alluser">All users</a>
+						<a href="/adminpanel/dashboard.php?panel=add-user" id="adduser" name="adduser" >Add user</a>
+						<a href="/adminpanel/dashboard.php?panel=remove-user" id="removeuser" name="removeuser">Remove user</a>
+					</div>
+					<a href="/adminpanel/_logout.php" id="logout">Logout</a>
 				</div>
 			</div>
 			<div class="col-md-10 col-12 bg-white panel_container">
 				<h2>Welcome <span>admin panel</span></h2>
-				<div id="load"></div>
+				<div id="panel_section">
+					<?php
+					if (!isset($_GET["panel"]) || $_GET["panel"] == "all-user") {
+						include 'allUser.php';
+					} else if (isset($_GET["panel"]) && $_GET["panel"] == "add-user") {
+						include 'addUser.php';
+					} else if (isset($_GET["panel"]) && $_GET["panel"] == "remove-user") {
+						include 'removeUser.php';
+					}
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -46,31 +59,33 @@ $id = $name = $level = $username ="";
 	<!-- get footer -->
 	<?php include '_footer.php'; ?>
 
-	<script>
+	
+
+	<script type="text/javascript">
 		$(document).ready(function() {
-			// $("#load").load("allUser.php");
-	        $("#alluser").click(function() {
-	          	$("#load").load("allUser.php");
-	        });
-	        $("#adduser").click(function() {
-	          	$("#load").load("addUser.php");
-	        });
-	         $("#removeuser").click(function() {
-	          	$("#load").load("removeUser.php");
-	        });
-      });
+			$(".menu_div button").click(function(){
+				$(".collapse_menu").slideToggle("slow");
+				$(".menu_div button").toggleClass("expanded");
+			    if ($(".menu_div button").hasClass("expanded")) {
+			      $(".menu_div button").html("+ Show User Menu");
+			    } else {
+			      $(".menu_div button").html("- Collapse User Menu");
+			    }
+			});
+		})
 	</script>
 
 	<!-- Remove User -->
 	<?php
-	if (isset($_POST["delete"])) {
+	if (isset($_POST["conf_delete"])) {
 		$del = 'DELETE FROM admin WHERE admin_id='.$_POST["id"];
 		$delres = mysqli_query($conn, $del);
 		if ($delres) {
-			echo "Deleted";
+			header("location: /adminpanel/dashboard.php?panel=remove-user");
 		}
 	}
 	?>
+
 
 	<!-- Add User -->
 	<?php
@@ -111,3 +126,4 @@ $id = $name = $level = $username ="";
 	?>
 </body>
 </html>
+
