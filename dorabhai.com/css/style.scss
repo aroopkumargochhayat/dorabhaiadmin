@@ -1,0 +1,194 @@
+@mixin heading {
+  text-align: center;
+  padding: 1rem 0;
+  text-transform: capitalize;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: arial;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.7rem;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 40px;
+    background: #ec4848;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: arial;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+header {
+  padding: 1.2rem 0;
+  box-shadow: 0 2px 16px #ccc;
+  .header_left {
+    p#logo {
+      font-size: 1.3rem;
+      margin-bottom: 0;
+    }
+  }
+  .header_right {
+    a {
+      margin: 0 0.4rem;
+    }
+  }
+}
+
+#home {
+  height: 100vh;
+
+  .home_left_div {
+    h3 {
+      font-size: 1.4rem;
+      font-family: arial;
+    }
+    h2 {
+      font-size: 1.56rem;
+      font-family: arial;
+      color: #ec4848;
+      padding: 7px 0;
+    }
+    p {
+      font-size: 1.1rem;
+      font-family: arial;
+      color: #777;
+    }
+    .rating .box {
+      text-align: center;
+      h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+#services {
+  padding: 1.4rem 0;
+
+  h2.heading {
+    @include heading;
+  }
+  .service_row {
+    padding: 1rem;
+    .single_service {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #000;
+      color: #ccc;
+      border-radius: 7px;
+      p.heading {
+        font-size: 1.1rem;
+        padding-bottom: 0.9rem;
+        margin-bottom: 0;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+      a {
+        display: inline-block;
+        background: #ec4848;
+        padding: 4px 12px !important;
+        margin-top: 0.9rem;
+      }
+    }
+  }
+}
+
+#companies {
+  padding: 1.4rem 0;
+
+  h2.heading {
+    @include heading;
+  }
+  div.single_company {
+    width: 100%;
+    padding: 1rem 1rem;
+    margin: 1rem 1.4rem;
+    text-align: center;
+    background: #ec4848;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #999;
+    h4 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 1.16rem;
+      color: #fff;
+      letter-spacing: 0.6px;
+    }
+  }
+}
+
+#testimonials {
+  padding: 1.4rem 0;
+
+  h2.heading {
+    @include heading;
+  }
+  .testi_row {
+    padding: 2rem 0;
+    .testi_box {
+      width: 100%;
+      padding: 3rem 4rem;
+      background: #fff;
+      border: 4px solid #999;
+      border-radius: 10px;
+      text-align: center;
+      p {
+        color: #444;
+        line-height: 2rem;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+footer {
+  background: #000;
+  padding: 1rem 0;
+  .footer_left {
+    .copyright {
+      p {
+        color: #999;
+        margin-bottom: 0;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .footer_right {
+    a {
+      text-decoration: none !important;
+      color: #fff;
+      font-size: 0.8rem;
+      margin: 0 5px;
+      height: 24px;
+      width: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      //   background: #444;
+    }
+  }
+}
